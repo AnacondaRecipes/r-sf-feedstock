@@ -41,6 +41,7 @@ requirements:
     - {{posix}}automake          # [not win]
     - {{posix}}pkg-config
     - {{posix}}make
+    - {{native}}libgdal
     - r-dbi >=0.5
     - r-rcpp
     - r-magrittr
@@ -49,6 +50,7 @@ requirements:
   run:
     - r-base
     - {{native}}gcc-libs         # [win]
+    - {{native}}libgdal
     - r-dbi >=0.5
     - r-rcpp
     - r-magrittr
