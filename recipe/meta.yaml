@@ -1,4 +1,4 @@
-{% set version = '0.5-4' %}
+{% set version = '0.5-5' %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -12,7 +12,7 @@ source:
   url:
     - https://cran.r-project.org/src/contrib/sf_{{ version }}.tar.gz
     - https://cran.r-project.org/src/contrib/Archive/sf/sf_{{ version }}.tar.gz
-  sha256: fc31ea46c075a1de4f958d57b4fbd4bb9d5befe4d29288706ebb9a0e6239aac2
+  sha256: 82ad31f98243b6982302fe245ee6e0d8d0546e5ff213ccc00ec3025dfec62229
 
 
   # patches:
@@ -28,7 +28,7 @@ build:
     - lib/R/lib/
     - lib/
 
-# Suggests: geosphere (>= 1.5-5), maptools, maps, rgdal, rgeos, sp (>= 1.2-4), RSQLite, RPostgreSQL, lazyeval, tibble, rlang, ggplot2, dplyr (>= 0.7-0), tidyr (>= 0.7-0), testthat, knitr, microbenchmark
+# Suggests: geosphere (>= 1.5-5), maptools, maps, rgdal, rgeos, sp (>= 1.2-4), raster, RSQLite, RPostgreSQL, tibble, rlang, dplyr (>= 0.7-0), tidyr (>= 0.7-0), ggplot2, mapview, tmap, testthat, knitr, covr, microbenchmark, spatstat
 requirements:
   build:
     - r-base
@@ -36,25 +36,29 @@ requirements:
     - {{ compiler('cxx') }}      # [not win]
     - {{native}}toolchain        # [win]
     - {{posix}}filesystem        # [win]
+    - {{posix}}sed               # [win]
+    - {{posix}}grep              # [win]
     - {{posix}}autoconf
     - {{posix}}automake-wrapper  # [win]
     - {{posix}}automake          # [not win]
     - {{posix}}pkg-config
     - {{posix}}make
-    - {{native}}libgdal
     - r-dbi >=0.5
     - r-rcpp
+    - r-classint
     - r-magrittr
     - r-units >=0.4_6
+    - {{native}}gdal
 
   run:
     - r-base
     - {{native}}gcc-libs         # [win]
-    - {{native}}libgdal
     - r-dbi >=0.5
     - r-rcpp
+    - r-classint
     - r-magrittr
     - r-units >=0.4_6
+    - {{native}}gdal
 
 test:
   commands:
@@ -85,27 +89,27 @@ extra:
 # The original CRAN metadata for this package was:
 
 # Package: sf
-# Version: 0.5-4
+# Version: 0.5-5
 # Title: Simple Features for R
 # Description: Support for simple features, a standardized way to encode spatial vector data. Binds  to GDAL for reading and writing data, to GEOS for geometrical operations, and to Proj.4 for projection conversions and datum transformations.
-# Authors@R: c(person("Edzer", "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de"), person("Roger", "Bivand", role = "ctb"), person("Ian", "Cook", role = "ctb"), person("Tim", "Keitt", role = "ctb"), person("Michael", "Sumner", role = "ctb"), person("Robin", "Lovelace", role = "ctb"), person("Hadley", "Wickham", role = "ctb"), person("Jeroen", "Ooms", role = "ctb"), person("Etienne", "Racine", role = "ctb"))
-# Depends: R (>= 3.3.0)
-# Imports: utils, stats, tools, graphics, grDevices, grid, methods, Rcpp, DBI (>= 0.5), units (>= 0.4-6), magrittr
-# Suggests: geosphere (>= 1.5-5), maptools, maps, rgdal, rgeos, sp (>= 1.2-4), RSQLite, RPostgreSQL, lazyeval, tibble, rlang, ggplot2, dplyr (>= 0.7-0), tidyr (>= 0.7-0), testthat, knitr, microbenchmark
+# Authors@R: c(person("Edzer", "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de", comment = c(ORCID = "0000-0001-8049-7069")), person("Roger", "Bivand", role = "ctb", comment = c(ORCID = "0000-0003-2392-6140")), person("Ian", "Cook", role = "ctb"), person("Tim", "Keitt", role = "ctb"), person("Michael", "Sumner", role = "ctb"), person("Robin", "Lovelace", role = "ctb"), person("Hadley", "Wickham", role = "ctb"), person("Jeroen", "Ooms", role = "ctb"), person("Etienne", "Racine", role = "ctb"))
+# Depends: R (>= 3.3.0), methods
+# Imports: utils, stats, tools, graphics, grDevices, grid, Rcpp, DBI (>= 0.5), units (>= 0.4-6), classInt, magrittr
+# Suggests: geosphere (>= 1.5-5), maptools, maps, rgdal, rgeos, sp (>= 1.2-4), raster, RSQLite, RPostgreSQL, tibble, rlang, dplyr (>= 0.7-0), tidyr (>= 0.7-0), ggplot2, mapview, tmap, testthat, knitr, covr, microbenchmark, spatstat
 # LinkingTo: Rcpp
 # VignetteBuilder: knitr
 # SystemRequirements: GDAL (>= 2.0.0), GEOS (>= 3.3.0), PROJ.4 (>= 4.8.0)
 # License: GPL-2 | MIT + file LICENSE
 # URL: https://github.com/r-spatial/sf/
 # BugReports: https://github.com/r-spatial/sf/issues/
-# Collate: RcppExports.R init.R crs.R bbox.R read.R db.R sfc.R sfg.R sf.R bind.R wkb.R wkt.R plot.R geom.R transform.R sp.R grid.R arith.R tidyverse.R cast_sfg.R cast_sfc.R graticule.R datasets.R aggregate.R agr.R maps.R join.R sample.R valid.R geohash.R split.R
+# Collate: RcppExports.R init.R crs.R bbox.R read.R db.R sfc.R sfg.R sf.R bind.R wkb.R wkt.R plot.R geom.R transform.R sp.R grid.R arith.R tidyverse.R cast_sfg.R cast_sfc.R graticule.R datasets.R aggregate.R agr.R maps.R join.R sample.R valid.R geohash.R split.R collection_extract.R jitter.R sgbp.R spatstat.R
 # RoxygenNote: 6.0.1
 # NeedsCompilation: yes
-# Packaged: 2017-08-28 06:25:10 UTC; edzer
-# Author: Edzer Pebesma [aut, cre], Roger Bivand [ctb], Ian Cook [ctb], Tim Keitt [ctb], Michael Sumner [ctb], Robin Lovelace [ctb], Hadley Wickham [ctb], Jeroen Ooms [ctb], Etienne Racine [ctb]
+# Packaged: 2017-10-31 14:10:14 UTC; edzer
+# Author: Edzer Pebesma [aut, cre] (0000-0001-8049-7069), Roger Bivand [ctb] (0000-0003-2392-6140), Ian Cook [ctb], Tim Keitt [ctb], Michael Sumner [ctb], Robin Lovelace [ctb], Hadley Wickham [ctb], Jeroen Ooms [ctb], Etienne Racine [ctb]
 # Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 # Repository: CRAN
-# Date/Publication: 2017-08-28 15:44:19 UTC
+# Date/Publication: 2017-10-31 16:03:27 UTC
 
 # See
 # http://docs.continuum.io/conda/build.html for
