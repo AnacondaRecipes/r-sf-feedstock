@@ -23,6 +23,7 @@ build:
   # If this is a new build for the same version, increment the build number.
   number: 0
 
+
   # This is required to make R link correctly on Linux.
   rpaths:
     - lib/R/lib/
@@ -31,7 +32,6 @@ build:
 # Suggests: geosphere (>= 1.5-5), maptools, maps, rgdal, rgeos, sp (>= 1.2-4), raster, RSQLite, RPostgreSQL, tibble, rlang, dplyr (>= 0.7-0), tidyr (>= 0.7-0), ggplot2, mapview, tmap, testthat, knitr, covr, microbenchmark, spatstat
 requirements:
   build:
-    - r-base
     - {{ compiler('c') }}        # [not win]
     - {{ compiler('cxx') }}      # [not win]
     - {{native}}toolchain        # [win]
@@ -43,6 +43,9 @@ requirements:
     - {{posix}}automake          # [not win]
     - {{posix}}pkg-config
     - {{posix}}make
+
+  host:
+    - r-base
     - r-dbi >=0.5
     - r-rcpp
     - r-classint
