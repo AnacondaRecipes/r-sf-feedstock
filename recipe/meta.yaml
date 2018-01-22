@@ -10,8 +10,8 @@ package:
 source:
   fn: sf_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/sf_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/sf/sf_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/sf_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/sf/sf_{{ version }}.tar.gz
   sha256: 82ad31f98243b6982302fe245ee6e0d8d0546e5ff213ccc00ec3025dfec62229
 
 
