@@ -52,7 +52,11 @@ requirements:
     - r-classint
     - r-magrittr
     - r-units >=0.4_6
-    - {{native}}gdal
+    - {{native}}gdal             # [win]
+    - {{native}}libgdal          # [unix]
+    - {{native}}proj4            # [linux]
+    # For some reason, without this, 3.6.0 was getting selected and conflicting with libgdal's geos dep
+    - {{native}}geos >=3.6.2,<3.6.3.0a0  # [linux]
 
   run:
     - r-base
@@ -62,7 +66,6 @@ requirements:
     - r-classint
     - r-magrittr
     - r-units >=0.4_6
-    - {{native}}gdal
 
 test:
   commands:
