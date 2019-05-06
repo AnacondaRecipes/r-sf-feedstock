@@ -62,6 +62,9 @@ requirements:
     - r-classint >=0.2_1
     - r-magrittr
     - r-units >=0.6_0
+    - {{native}}gdal             # [win]
+    - {{native}}libgdal          # [unix]
+    - {{native}}geos >=3.6.2,<3.6.3.0a0  # [unix]
 
 test:
   commands:
