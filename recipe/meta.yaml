@@ -1,5 +1,4 @@
 {% set version = '1.0-7' %}
-
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -15,11 +14,10 @@ source:
 
 build:
   merge_build_host: True  # [win]
-  # If this is a new build for the same version, increment the build number.
   number: 2
   # These architectures might be supported but currently don't have r-base.
-  skip: True  # [aarch64 or s390x or ppc64le or osx-arm64]
-
+  skip: True  # [aarch64 or s390x or ppc64le]
+  skip: True  # [osx-arm64]
   # This is required to make R link correctly on Linux.
   rpaths:
     - lib/R/lib/
@@ -70,15 +68,8 @@ requirements:
 
 test:
   commands:
-    # You can put additional test commands to be run here.
     - $R -e "library('sf')"           # [not win]
     - "\"%R%\" -e \"library('sf')\""  # [win]
-
-  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
-  # in the recipe that will be run at test time.
-
-  # requires:
-    # Put any additional test requirements here.
 
 about:
   home: https://r-spatial.github.io/sf/, https://github.com/r-spatial/sf/
