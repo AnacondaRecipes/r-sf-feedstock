@@ -15,8 +15,9 @@ source:
 build:
   merge_build_host: True  # [win]
   number: 2
-  # These architectures might be supported but currently don't have r-base.
-  skip: True  # [aarch64 or arm64 or s390x or ppc64le]
+  # These architectures might be supported but currently don't have a newer r-base.
+  # As of updating this recipe, this version (1.0-7) is only built for linux-64.
+  skip: True  # [not linux-64]
   # This is required to make R link correctly on Linux.
   rpaths:
     - lib/R/lib/
