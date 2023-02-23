@@ -16,35 +16,40 @@ source:
 build:
   merge_build_host: True  # [win]
   # If this is a new build for the same version, increment the build number.
-  number: 1
-  # no skip
+  number: 2
+  # These architectures might be supported but currently don't have r-base.
+  skip: True  # [aarch64 or s390x or ppc64le or osx-arm64]
 
   # This is required to make R link correctly on Linux.
   rpaths:
     - lib/R/lib/
     - lib/
 
-# Suggests: blob, covr, dplyr (>= 0.8-3), ggplot2, knitr, lwgeom (>= 0.2-1), maps, mapview, Matrix, microbenchmark, odbc, pillar, pool, raster, rlang, rmarkdown, RPostgres (>= 1.1.0), RPostgreSQL, RSQLite, sp (>= 1.2-4), spatstat (>= 2.0-1), spatstat.geom, spatstat.random, spatstat.linnet, spatstat.utils, stars (>= 0.2-0), terra, testthat, tibble (>= 1.4.1), tidyr (>= 1.2.0), tidyselect (>= 1.0.0), tmap (>= 2.0), vctrs, wk
+# Suggests: blob, covr, dplyr (>= 0.8-3), ggplot2, knitr, lwgeom (>= 0.2-1), maps,
+# mapview, Matrix, microbenchmark, odbc, pillar, pool, raster, rlang, rmarkdown,
+# RPostgres (>= 1.1.0), RPostgreSQL, RSQLite, sp (>= 1.2-4), spatstat (>= 2.0-1),
+# spatstat.geom, spatstat.random, spatstat.linnet, spatstat.utils, stars (>= 0.2-0),
+# terra, testthat, tibble (>= 1.4.1), tidyr (>= 1.2.0), tidyselect (>= 1.0.0),
+# tmap (>= 2.0), vctrs, wk. Also, the newer R packages need r-base to be at least
+# 4.2.0.
 requirements:
   build:
     - {{ compiler('c') }}              # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
     - {{ compiler('cxx') }}            # [not win]
     - {{ compiler('m2w64_cxx') }}      # [win]
-    - {{ posix }}filesystem        # [win]
-    - {{ posix }}sed               # [win]
-    - {{ posix }}grep              # [win]
+    - {{ posix }}filesystem            # [win]
+    - {{ posix }}sed                   # [win]
+    - {{ posix }}grep                  # [win]
     - {{ posix }}autoconf
-    - {{ posix }}automake          # [not win]
-    - {{ posix }}automake-wrapper  # [win]
+    - {{ posix }}automake              # [not win]
+    - {{ posix }}automake-wrapper      # [win]
     - {{ posix }}pkg-config
     - {{ posix }}make
-    - {{ posix }}coreutils         # [win]
-    - {{ posix }}zip               # [win]
-    - libgdal
-
+    - {{ posix }}coreutils             # [win]
+    - {{ posix }}zip                   # [win]
   host:
-    - r-base
+    - r-base >=4.2.0
     - r-dbi >=0.8
     - r-rcpp >=0.12.18
     - r-classint >=0.4_1
@@ -52,9 +57,8 @@ requirements:
     - r-s2 >=1.0.7
     - r-units >=0.7_0
     - libgdal
-
   run:
-    - r-base
+    - r-base >=4.2.0
     - {{native}}gcc-libs         # [win]
     - r-dbi >=0.8
     - r-rcpp >=0.12.18
