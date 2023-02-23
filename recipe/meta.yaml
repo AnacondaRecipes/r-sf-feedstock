@@ -17,7 +17,7 @@ build:
   number: 2
   # These architectures might be supported but currently don't have a newer r-base.
   # As of updating this recipe, this version (1.0-7) is only built for linux-64.
-  skip: True  # [not linux-64]
+  skip: True  # [not (linux and x86_64)]
   # This is required to make R link correctly on Linux.
   rpaths:
     - lib/R/lib/
