@@ -54,7 +54,7 @@ requirements:
     - r-magrittr
     - r-s2 >=1.0.7
     - r-units >=0.7_0
-    - libgdal
+    - libgdal >=3.6.0
   run:
     - r-base >=4.2.0
     - {{native}}gcc-libs         # [win]
@@ -64,7 +64,6 @@ requirements:
     - r-magrittr
     - r-s2 >=1.0.7
     - r-units >=0.7_0
-    - libgdal
 
 test:
   commands:
