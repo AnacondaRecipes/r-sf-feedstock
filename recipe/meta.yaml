@@ -16,7 +16,7 @@ source:
 build:
   merge_build_host: True  # [win]
   # If this is a new build for the same version, increment the build number.
-  number: 0
+  number: 1
   # no skip
 
   # This is required to make R link correctly on Linux.
@@ -50,7 +50,9 @@ requirements:
     - r-magrittr
     - r-s2 >=1.1.0
     - r-units >=0.7_0
-    - libgdal >=3.6.0
+    - libgdal {{ libgdal }}
+    - geos {{ geos }}
+    - proj {{ proj }}
   run:
     - r-base
     - {{native}}gcc-libs         # [win]
@@ -60,6 +62,10 @@ requirements:
     - r-magrittr
     - r-s2 >=1.1.0
     - r-units >=0.7_0
+    # bounds through run_exports
+    - libgdal
+    - geos
+    - proj
 
 test:
   commands:
